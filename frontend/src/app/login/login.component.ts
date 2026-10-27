@@ -8,7 +8,7 @@ import { WindowRefService } from '../Services/window-ref.service'
 import { ActivatedRoute, Router, RouterLink } from '@angular/router'
 import { Component, type OnInit, inject, signal, ChangeDetectionStrategy } from '@angular/core'
 import { FormsModule } from '@angular/forms'
-import { FormField, form, minLength, maxLength, required, pattern, submit } from '@angular/forms/signals'
+import { FormField, form, minLength, maxLength, required, email, submit } from '@angular/forms/signals'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { UserService } from '../Services/user.service'
 import { faEye, faEyeSlash, faKey } from '@fortawesome/free-solid-svg-icons'
@@ -54,14 +54,14 @@ export class LoginComponent implements OnInit {
     rememberMe: false
   })
 
-  public readonly loginForm = form(this.loginModel, (s) => {
-    required(s.email)
-    pattern(s.email, /^[^\s@]+@[^\s@]+$/)
-    maxLength(s.email, 100)
-    required(s.password)
-    minLength(s.password, 1)
-    maxLength(s.password, 128)
-  })
+public readonly loginForm = form(this.loginModel, (s) => {
+  required(s.email)
+  email(s.email)
+  maxLength(s.email, 100)
+  required(s.password)
+  minLength(s.password, 1)
+  maxLength(s.password, 128)
+})
 
   public hide = true
   public error = signal<any>(null)
